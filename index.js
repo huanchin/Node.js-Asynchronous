@@ -1,6 +1,8 @@
 const fs = require('fs');
 const superagent = require('superagent');
 
+/************************** solution 1 *******************************/
+
 //callback hell
 // fs.readFile(`${__dirname}/dog.txt`, (err, data) => {
 //   console.log(`breed: ${data}`);
@@ -16,6 +18,8 @@ const superagent = require('superagent');
 //       });
 //     });
 // });
+
+/************************** solution 2 *******************************/
 
 // promisify read file and write file functions (make them so that they return promises)
 const readFilePro = (file) => {
