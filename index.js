@@ -117,3 +117,31 @@ getDog()
     console.log(err);
   }
 })();
+
+/************************** Wait for multiple Promises simultaneously *******************************/
+
+async function getDog() {
+  try {
+    const data = await readFilePro(`${__dirname}/dog.txt`);
+    console.log(`Breed: ${data}`);
+    
+    const res1 = superagent.get(
+      `https://dog.ceo/api/breed/${data}/images/random`,
+    );
+    const res2 = superagent.get(
+      `https://dog.ceo/api/breed/${data}/images/random`,
+    );
+    const res3 = superagent.get(
+      `https://dog.ceo/api/breed/${data}/images/random`,
+    );
+    const all = await Promise.all([res1, res2, res3]);
+    
+    const imgs = all.map((el) => el.body.message);
+    await writeFilePro(`${__dirname}/dog-img.txt`, imgs.join('\n'));
+    console.log('Random dog image saved the file!');
+  } catch (err) {
+    console.log(err.message);
+    throw err;
+  }
+  return '2: Ready';
+}
