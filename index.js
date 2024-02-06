@@ -71,6 +71,7 @@ async function getDog() {
     console.log('Random dog image saved the file!');
   } catch (err) {
     console.log(err.message);
+    throw err;
   }
 }
 
