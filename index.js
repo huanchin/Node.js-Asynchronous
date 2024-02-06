@@ -19,7 +19,7 @@ const superagent = require('superagent');
 //     });
 // });
 
-/************************** solution 2 *******************************/
+/************************** solution 2: Promises *******************************/
 
 // promisify read file and write file functions (make them so that they return promises)
 const readFilePro = (file) => {
@@ -56,3 +56,22 @@ readFilePro(`${__dirname}/dog.txt`)
   .catch((err) => {
     console.log(err);
   });
+
+/************************** solution 3: Async/ Await *******************************/
+
+async function getDog() {
+  try {
+    const data = await readFilePro(`${__dirname}/dog.txt`);
+    console.log(`Breed: ${data}`);
+    const res = await superagent.get(
+      `https://dog.ceo/api/breed/${data}/images/random`,
+    );
+    console.log(res.body.message);
+    await writeFilePro(`${__dirname}/dog-img.txt`, res.body.message);
+    console.log('Random dog image saved the file!');
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+getDog();
