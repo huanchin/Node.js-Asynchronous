@@ -73,6 +73,47 @@ async function getDog() {
     console.log(err.message);
     throw err;
   }
+  return "2: Ready"
 }
 
 getDog();
+
+/************************** test 1: get the return from Promise *******************************/
+
+console.log("1: Start to get image")
+const x = getDog();
+console.log("3: End")
+// OUTPUT:
+// 1: Start to get image
+// Promise { <pending> }
+// 3: End
+// Breed: retriever
+// https://images.dog.ceo/breeds/retriever-golden/n02099601_6099.jpg
+// Random dog image saved the file!
+/************************** test 2: get the return from Promise *******************************/
+
+console.log('1: Start to get image');
+getDog()
+  .then((x) => {
+    console.log(x);
+    console.log('3: End');
+  })
+  .catch((err) => console.log(err));
+// OUTPUT
+// 1: Start to get image
+// Breed: retriever
+// https://images.dog.ceo/breeds/retriever-flatcoated/n02099267_3768.jpg
+// Random dog image saved the file!
+// 2: Ready
+// 3: End
+/************************** test 2: get the return from Promise *******************************/
+(async () => {
+  try {
+    console.log('1: Start to get image');
+    const x = await getDog();
+    console.log(x);
+    console.log('3: End');
+  } catch (err) {
+    console.log(err);
+  }
+})();
